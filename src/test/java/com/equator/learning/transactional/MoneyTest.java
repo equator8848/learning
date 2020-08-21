@@ -24,9 +24,9 @@ public class MoneyTest extends BaseTest {
     }
 
     @Test
-    public void testPropagationBad() {
+    public void testPropagationUnknown() {
         System.out.println(moneyService.getByName("libinkai"));
-        moneyService.testPropagationBad();
+        moneyService.testPropagationUnknown();
         System.out.println(moneyService.getByName("libinkai"));
     }
 }

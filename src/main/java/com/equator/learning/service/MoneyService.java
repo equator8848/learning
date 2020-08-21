@@ -4,6 +4,7 @@ import com.equator.learning.dao.MoneyMapper;
 import com.equator.learning.model.po.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -12,6 +13,9 @@ import java.util.List;
 public class MoneyService {
     @Autowired
     private MoneyMapper moneyMapper;
+
+    @Autowired
+    private MoneyService moneyService;
 
     public List<Money> getMoneyList() {
         return moneyMapper.all();
@@ -24,25 +28,25 @@ public class MoneyService {
     @Transactional(rollbackFor = Exception.class)
     public void testTransactionalGood() {
         moneyMapper.transfer("libinkai", 1000);
-        int zero = 0;
-        int e = 1000 / zero;
+        throw new RuntimeException();
     }
 
     @Transactional
     public void testTransactionalBad() {
         moneyMapper.transfer("libinkai", 1000);
-        int zero = 0;
-        int e = 1000 / zero;
+        throw new RuntimeException();
     }
 
     @Transactional
-    public void testPropagationBad() {
-        badTransfer();
+    public void testPropagationUnknown() {
+        moneyMapper.transfer("liuyida", 10000);
+        moneyService.badTransfer();
+        throw new RuntimeException();
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void badTransfer() {
         moneyMapper.transfer("libinkai", 1000);
-        int zero = 0;
-        int e = 1000 / zero;
+        moneyMapper.transfer("leo", -1000);
     }
 }

@@ -17,9 +17,6 @@ public class StaticRef {
         System.out.println("test");
     }
 
-    public void test1() {
-        System.out.println("test");
-    }
 
     /**
      * javap -c -v target/classes/com/equator/coding_guidelines/oop/StaticRef.class
@@ -28,7 +25,6 @@ public class StaticRef {
      */
     public static void main(String[] args) {
         StaticRef staticRef = new StaticRef();
-        StaticRef staticRef2 = new StaticRef();
         // 不推荐
         System.out.println(staticRef.field);
         staticRef.func();
@@ -39,6 +35,5 @@ public class StaticRef {
         System.out.println(staticRef.age);
 
         staticRef.test();
-        staticRef2.test1();
     }
 }

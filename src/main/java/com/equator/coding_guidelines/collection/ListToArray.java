@@ -44,16 +44,18 @@ public class ListToArray {
     }
 
     @Test
-    public void test1() {
+    public void testRemove() {
         List<String> list = new ArrayList<>();
         list.add("0");
         list.add("1");
+        list.add("2");
         list.add("3");
         for (String item : list) {
-            if ("0".equals(item)) {
+            System.out.println(item);
+            if ("2".equals(item)) {
                 list.remove(item);
             }
         }
-        System.out.println(list);
+        // System.out.println(list);
     }
 }

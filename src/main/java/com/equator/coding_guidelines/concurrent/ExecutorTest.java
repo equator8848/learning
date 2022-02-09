@@ -16,6 +16,7 @@ public class ExecutorTest {
     public void badCase() {
         ExecutorService fixedThreadPool = Executors.newFixedThreadPool(10);
         ExecutorService singleThreadPool = Executors.newSingleThreadExecutor();
+
         ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
         ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(4);
     }
@@ -23,7 +24,8 @@ public class ExecutorTest {
     @Test
     public void goodCase() {
         ThreadFactory threadFactory = new ThreadFactoryBuilder().setNameFormat("equator-thread-%d").build();
-        new ThreadPoolExecutor(5, 200, 0, TimeUnit.SECONDS,
-                new LinkedBlockingQueue<>(512), threadFactory, new ThreadPoolExecutor.AbortPolicy());
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(8, 32, 16, TimeUnit.SECONDS,
+                new LinkedBlockingQueue<>(32), threadFactory, new ThreadPoolExecutor.AbortPolicy());
+
     }
 }
